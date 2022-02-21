@@ -31,6 +31,15 @@ public class Teacher {
 	public Teacher() {
 		
 	}
+	
+
+	public Teacher(String name, BigDecimal salary, TeacherStatus teacherStatus) {
+		super();
+		this.name = name;
+		this.salary = salary;
+		this.teacherStatus = teacherStatus;
+	}
+
 
 	public Long getId() {
 		return id;
