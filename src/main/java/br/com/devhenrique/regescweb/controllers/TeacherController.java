@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.devhenrique.regescweb.dto.TeacherDTO;
 import br.com.devhenrique.regescweb.models.Teacher;
 import br.com.devhenrique.regescweb.models.enums.TeacherStatus;
 import br.com.devhenrique.regescweb.services.TeacherService;
@@ -31,6 +33,15 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView("teachers/new.html");
 		mv.addObject("teacherStatus", TeacherStatus.values());
 		return mv;
+	}
+	
+	@PostMapping("/teachers")
+	public String create(TeacherDTO teacherDto) {
+		
+		Teacher teacher = teacherDto.toTeacher();
+		this.teacherService.save(teacher);
+		
+		return "redirect:/teachers";
 	}
 	
 }

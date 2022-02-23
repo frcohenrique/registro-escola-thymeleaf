@@ -72,6 +72,12 @@ public class Teacher {
 	public void setTeacherStatus(TeacherStatus teacherStatus) {
 		this.teacherStatus = teacherStatus;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Teacher [id=" + id + ", name=" + name + ", salary=" + salary + ", teacherStatus=" + teacherStatus + "]";
+	}
 	
 	
 	

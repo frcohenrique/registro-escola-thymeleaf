@@ -18,4 +18,9 @@ public class TeacherService {
 		return repository.findAll();
 	}
 	
+	public void save(Teacher teacher) {
+		repository.save(teacher);
+	}
+
+	
 }
