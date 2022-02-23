@@ -2,12 +2,20 @@ package br.com.devhenrique.regescweb.dto;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import br.com.devhenrique.regescweb.models.Teacher;
 import br.com.devhenrique.regescweb.models.enums.TeacherStatus;
 
 public class TeacherDTO {
 	
+	@NotBlank
+	@NotNull
 	private String name;
+	@NotNull
+	@DecimalMin("0.0")
 	private BigDecimal salary;
 	private TeacherStatus teacherStatus;
 	
