@@ -31,24 +31,25 @@ public class TeacherController {
 		
 	}
 	
-	@GetMapping("/teacher/new")
-	public ModelAndView newTeacher() {
+	@GetMapping("/teachers/new")
+	public ModelAndView newTeacher(TeacherDTO teacherDto) {
 		ModelAndView mv = new ModelAndView("teachers/new.html");
-		mv.addObject("teacherStatus", TeacherStatus.values());
+		mv.addObject("teacherStatusList", TeacherStatus.values());
 		return mv;
 	}
 	
 	@PostMapping("/teachers")
-	public String create(@Valid TeacherDTO teacherDto, BindingResult bindingResult) {
+	public ModelAndView create(@Valid TeacherDTO teacherDto, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			System.out.println("\n****************\n");
-			return "redirect:/teacher/new";
+			ModelAndView mv = new ModelAndView("teachers/new");
+			mv.addObject("teacherStatusList", TeacherStatus.values());
+			return mv;
 		}
 		else {
 			Teacher teacher = teacherDto.toTeacher();
 			this.teacherService.save(teacher);
 			
-			return "redirect:/teachers";
+			return new ModelAndView("redirect:/teachers");
 		}
 		
 	}
