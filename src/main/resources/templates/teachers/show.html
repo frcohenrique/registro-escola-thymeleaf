@@ -1,0 +1,28 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Teacher #')}">
+</head>
+<body>
+
+	<header th:replace="~{fragments :: header('Teacher #' + ${teacher.getId()})}"></header>
+
+	<main>
+		<div class="container mt-4">
+			<div class="row">
+				<div class="col-12">
+					<b>Name:</b> <span th:text="${teacher.name}"></span><br/>
+					<b>Salary:</b> <span th:text="${teacher.salary}"></span><br/>
+					<b>Status:</b> <span th:text="${teacher.teacherStatus.toString()}"></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<a href="#">Edit</a> <a href="/teachers">Back</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+</body>
+</html>

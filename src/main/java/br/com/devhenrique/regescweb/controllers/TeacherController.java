@@ -1,6 +1,7 @@
 package br.com.devhenrique.regescweb.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,6 +51,21 @@ public class TeacherController {
 			Teacher teacher = teacherDto.toTeacher();
 			this.teacherService.save(teacher);
 			
+			return new ModelAndView("redirect:/teachers/" + teacher.getId());
+		}
+		
+	}
+	
+	@GetMapping("/teachers/{id}")
+	public ModelAndView show(@PathVariable Long id) {
+		Optional<Teacher> optional = teacherService.findById(id);
+		if (optional.isPresent()) {
+			Teacher teacher = optional.get();
+			ModelAndView mv = new ModelAndView("teachers/show.html");
+			mv.addObject("teacher", teacher);
+			return mv;
+		}
+		else {
 			return new ModelAndView("redirect:/teachers");
 		}
 		
