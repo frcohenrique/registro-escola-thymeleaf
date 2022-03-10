@@ -117,15 +117,19 @@ public class TeacherController {
 	}
 	
 	@GetMapping("/{id}/delete")
-	public String delete(@PathVariable Long id) {
+	public ModelAndView delete(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView("redirect:/teachers");
+		
 		try {
 			teacherService.deleteById(id);
-			return "redirect:/teachers";
+			mv.addObject("message", "Teacher #"+ id + " deleted successfully!");
+			mv.addObject("error", "false");
 		}catch(EmptyResultDataAccessException e) {
 			System.out.println(e);
-			return "redirect:/teachers";
+			mv.addObject("message", "Teacher #"+ id + " doesn't exist!");
+			mv.addObject("error", "true");
 		}
-		
+		return mv;
 	}
 	
 }
