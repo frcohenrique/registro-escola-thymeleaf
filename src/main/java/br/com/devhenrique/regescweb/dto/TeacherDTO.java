@@ -47,6 +47,19 @@ public class TeacherDTO {
 		return teacher;
 	}
 	
+	public Teacher toTeacher(Teacher teacher) {
+		teacher.setName(this.name);
+		teacher.setSalary(this.salary);
+		teacher.setTeacherStatus(this.teacherStatus);
+		return teacher;
+	}
+	
+	public void fromTeacher(Teacher teacher) {
+		this.name = teacher.getName();
+		this.salary = teacher.getSalary();
+		this.teacherStatus = teacher.getTeacherStatus();
+	}
+	
 	@Override
 	public String toString() {
 		return "TeacherDTO [name=" + name + ", salary=" + salary + ", teacherStatus=" + teacherStatus + "]";
