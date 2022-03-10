@@ -96,7 +96,7 @@ public class TeacherController {
 	 public ModelAndView update(@PathVariable Long id, @Valid TeacherDTO teacherDto, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			ModelAndView mv = new ModelAndView("teachers/edit");
-			mv.addObject("teacherId", teacher.getId());
+			mv.addObject("teacherId", id);
 			mv.addObject("teacherStatusList", TeacherStatus.values());
 			return mv;
 		}
