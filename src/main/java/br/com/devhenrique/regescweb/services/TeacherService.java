@@ -27,4 +27,8 @@ public class TeacherService {
 		return repository.findById(id);
 	}
 	
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}
+	
 }

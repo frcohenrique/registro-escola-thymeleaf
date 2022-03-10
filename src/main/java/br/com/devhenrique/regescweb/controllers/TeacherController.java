@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -111,6 +112,18 @@ public class TeacherController {
 				return new ModelAndView("redirect:/teachers");
 			}
 			
+		}
+		
+	}
+	
+	@GetMapping("/{id}/delete")
+	public String delete(@PathVariable Long id) {
+		try {
+			teacherService.deleteById(id);
+			return "redirect:/teachers";
+		}catch(EmptyResultDataAccessException e) {
+			System.out.println(e);
+			return "redirect:/teachers";
 		}
 		
 	}

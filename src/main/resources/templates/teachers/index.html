@@ -5,7 +5,7 @@
 </head>
 <body>
 	<header th:replace="~{fragments :: header('Teachers List')}"></header>
-	<div class="container">	
+	<div class="container">
 		<div class="row">
 			<div class="col-12">
 				<table class="table table-hover">
@@ -28,7 +28,10 @@
 							<th class="col-2" th:text="${teacher.teacherStatus.toString()}">Status</th>
 							<th class="col-1"><a th:href="@{/teachers/{teacherId}(teacherId = ${teacher.getId()})}">Details</a></th>
 							<th class="col-1"><a th:href="@{/teachers/{teacherId}/edit(teacherId = ${teacher.getId()})}">Edit</a></th>
-							<th class="col-1"><a href="#">Delete</a></th>
+							<th class="col-1"><a href="#" data-bs-toggle="modal"
+								th:attr="data-bs-target='#staticBackdrop'+${teacher.id}">Delete</a>
+								<div th:replace="~{teachers/delete-modal :: delete}"></div></th>
+							<!--  <th class="col-1"><a th:href="@{/teachers/{teacherId}/delete(teacherId = ${teacher.getId()})}">Delete</a></th>-->
 						</tr>
 					</tbody>
 				</table>
