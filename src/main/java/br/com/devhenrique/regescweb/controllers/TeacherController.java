@@ -69,7 +69,7 @@ public class TeacherController {
 			return mv;
 		}
 		else {
-			return new ModelAndView("redirect:/teachers");
+			return errorMessages("SHOW ERROR: Teacher #"+ id + " doesn't exist!");
 		}
 		
 	}
@@ -88,7 +88,8 @@ public class TeacherController {
 			return mv;
 		}
 		else {
-			return new ModelAndView("redirect:/teachers");
+			ModelAndView mv = errorMessages("EDIT ERROR: Teacher #"+ id + " doesn't exist!");
+			return mv;
 		}
 		
 	}
@@ -109,7 +110,8 @@ public class TeacherController {
 				return new ModelAndView("redirect:/teachers/" + teacher.getId());
 			}
 			else {
-				return new ModelAndView("redirect:/teachers");
+				ModelAndView mv = errorMessages("UPDATE ERROR: Teacher #"+ id + " doesn't exist!");
+				return mv;
 			}
 			
 		}
@@ -123,12 +125,18 @@ public class TeacherController {
 		try {
 			teacherService.deleteById(id);
 			mv.addObject("message", "Teacher #"+ id + " deleted successfully!");
-			mv.addObject("error", "false");
+			mv.addObject("error", false);
 		}catch(EmptyResultDataAccessException e) {
 			System.out.println(e);
-			mv.addObject("message", "Teacher #"+ id + " doesn't exist!");
-			mv.addObject("error", "true");
+			mv = errorMessages("DELETE ERROR: Teacher #"+ id + " doesn't exist!");
 		}
+		return mv;
+	}
+	
+	private ModelAndView errorMessages(String msg) {
+		ModelAndView mv = new ModelAndView("redirect:/teachers");
+		mv.addObject("message", msg);
+		mv.addObject("error", true);
 		return mv;
 	}
 	
