@@ -1,6 +1,7 @@
 package br.com.devhenrique.regescweb.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,9 +53,31 @@ public class StudentController {
 			Student student = studentDto.toStudent();
 			studentService.save(student);
 			
-			return new ModelAndView("redirect:/students/");
+			return new ModelAndView("redirect:/students/" + student.getId());
 		}
 		
+	}
+	
+	@GetMapping("/{id}")
+	public ModelAndView show(@PathVariable Long id) {
+		Optional<Student> optional = studentService.findById(id);
+		if (optional.isPresent()) {
+			Student student = optional.get();
+			ModelAndView mv = new ModelAndView("students/show.html");
+			mv.addObject("student", student);
+			return mv;
+		}
+		else {
+			return errorMessages("SHOW ERROR: STUDENT #"+ id + " doesn't exist!");
+		}
+		
+	}
+	
+	private ModelAndView errorMessages(String msg) {
+		ModelAndView mv = new ModelAndView("redirect:/students");
+		mv.addObject("message", msg);
+		mv.addObject("error", true);
+		return mv;
 	}
 	
 }

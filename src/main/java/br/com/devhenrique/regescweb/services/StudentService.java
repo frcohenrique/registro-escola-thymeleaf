@@ -1,6 +1,7 @@
 package br.com.devhenrique.regescweb.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class StudentService {
 	
 	public void save(Student student) {
 		repository.save(student);
+	}
+	
+	public Optional<Student> findById(Long id){
+		return repository.findById(id);
 	}
 	
 }
