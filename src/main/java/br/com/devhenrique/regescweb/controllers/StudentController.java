@@ -73,6 +73,50 @@ public class StudentController {
 		
 	}
 	
+	@GetMapping("/{id}/edit")
+	public ModelAndView edit(@PathVariable Long id, StudentDTO studentDto) {
+		
+		Optional<Student> optional = studentService.findById(id);
+		
+		if (optional.isPresent()) {
+			Student student = optional.get();
+			studentDto.fromTeacher(student);
+			ModelAndView mv = new ModelAndView("students/edit.html");
+			mv.addObject("studentId", student.getId());
+			mv.addObject("courseTypeList", EnumCourseType.values());
+			return mv;
+		}
+		else {
+			ModelAndView mv = errorMessages("EDIT ERROR: Student #"+ id + " doesn't exist!");
+			return mv;
+		}
+		
+	}
+	
+	@PostMapping("/{id}")
+	 public ModelAndView update(@PathVariable Long id, @Valid StudentDTO studentDto, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			ModelAndView mv = new ModelAndView("students/edit");
+			mv.addObject("studentId", id);
+			mv.addObject("courseTypeList", EnumCourseType.values());
+			return mv;
+		}
+		else {
+			Optional<Student> optional = studentService.findById(id);
+			if (optional.isPresent()) {
+				Student student = studentDto.toStudent(optional.get());
+				studentService.save(student);
+				return new ModelAndView("redirect:/students/" + student.getId());
+			}
+			else {
+				ModelAndView mv = errorMessages("UPDATE ERROR: Student #"+ id + " doesn't exist!");
+				return mv;
+			}
+			
+		}
+		
+	}
+	
 	private ModelAndView errorMessages(String msg) {
 		ModelAndView mv = new ModelAndView("redirect:/students");
 		mv.addObject("message", msg);

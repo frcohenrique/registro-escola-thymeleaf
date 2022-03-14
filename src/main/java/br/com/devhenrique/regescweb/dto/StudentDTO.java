@@ -58,6 +58,18 @@ public class StudentDTO {
 		student.setEnumCourseType(enumCourseType);
 		return student;
 	}
+	public Student toStudent(Student student) {
+		student.setName(name);
+		student.setCourse(course);
+		student.setEnumCourseType(enumCourseType);
+		return student;
+	}
+	
+	public void fromTeacher(Student student) {
+		name = student.getName();
+		course = student.getCourse();
+		enumCourseType = student.getEnumCourseType();
+	}
 	
 	
 }
