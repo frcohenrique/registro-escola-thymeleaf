@@ -42,10 +42,10 @@
 								th:href="@{/students/{studentId}(studentId = ${student.getId()})}">Details</a></th>
 							<th class="col-1"><a
 								th:href="@{/students/{studentId}/edit(studentId = ${student.getId()})}">Edit</a></th>
-<!--							<th class="col-1"><a href="#" data-bs-toggle="modal"
+							<th class="col-1"><a href="#" data-bs-toggle="modal"
 								th:attr="data-bs-target='#staticBackdrop'+${student.id}">Delete</a>
-								<div th:replace="~{students/delete-modal :: delete}"></div></th>-->
-						  	<th class="col-1"><a href="#">Delete</a></th>
+								<div th:replace="~{students/delete-modal :: delete}"></div></th>
+<!--						  	<th class="col-1"><a href="#">Delete</a></th>-->
 						</tr>
 					</tbody>
 				</table>

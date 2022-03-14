@@ -1,0 +1,28 @@
+<div th:fragment="delete" class="modal fade"
+	th:id="staticBackdrop+${student.id}" data-bs-backdrop="static"
+	data-bs-keyboard="false" tabindex="-1"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Delete
+					Registry</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<h5>
+					Do you really want to delete the student #<span
+						th:text="${student.id}"></span>?
+				</h5>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">Cancel</button>
+				<a
+					th:href="@{/students/{studentId}/delete(studentId=${student.id})}"
+					class="btn btn-danger">Yes</a>
+			</div>
+		</div>
+	</div>
+</div>

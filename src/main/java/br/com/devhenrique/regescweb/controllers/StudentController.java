@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -115,6 +116,21 @@ public class StudentController {
 			
 		}
 		
+	}
+	
+	@GetMapping("/{id}/delete")
+	public ModelAndView delete(@PathVariable Long id) {
+		ModelAndView mv = new ModelAndView("redirect:/students");
+		
+		try {
+			studentService.deleteById(id);
+			mv.addObject("message", "Student #"+ id + " deleted successfully!");
+			mv.addObject("error", false);
+		}catch(EmptyResultDataAccessException e) {
+			System.out.println(e);
+			mv = errorMessages("DELETE ERROR: Student #"+ id + " doesn't exist!");
+		}
+		return mv;
 	}
 	
 	private ModelAndView errorMessages(String msg) {

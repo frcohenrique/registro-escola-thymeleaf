@@ -21,7 +21,8 @@
 				th:classappend="${#httpServletRequest.getRequestURI().equals('/') ? 'active':''}" class="nav-link" href="/">Home</a></li>
 			<li class="nav-item"><a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/teachers') ? 'active':''}"
 				href="/teachers">Teachers</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Students</a></li>
+			<li class="nav-item"><a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/students') ? 'active':''}"
+			href="/students">Students</a></li>
 		</ul>
 	</div>
 	<div class="container mt-3">
