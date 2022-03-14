@@ -1,0 +1,28 @@
+
+<div class="container" th:fragment="form(studentDTO, action)">
+	<div class="row">
+		<form th:object="${studentDTO}"
+			th:action="${action}"
+			method="POST">
+			<div class="mb-3">
+				<label class="form-label">Name</label> <input class="form-control "
+					th:errorclass="is-invalid" type="text" th:field="*{name}">
+				<div class="invalid-feedback" th:errors="*{name}"></div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Course</label> <input class="form-control"
+					th:errorclass="is-invalid" type="text" th:field="*{course}">
+				<div class="invalid-feedback" th:errors="*{course}"></div>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Degree</label> <select class="form-select"
+					th:field="*{enumCourseType}">
+					<option th:each="courseType : ${courseTypeList}"
+						th:value="${courseType}" th:text="${courseType}"></option>
+				</select>
+			</div>
+			<button class="btn btn-primary" type="submit">Submit</button>
+			<a href="javascript:history.back()">Cancel</a>
+		</form>
+	</div>
+</div>
